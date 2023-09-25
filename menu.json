@@ -1,0 +1,25 @@
+{
+	"perroPeq":{
+		"sencillo": 1,
+		"especial": 1.8
+	},
+	"hamburguesa":{
+		"sencillo": 3,
+		"especial": 4.8
+	},
+	"empandas":{
+		"sencillo": 1,
+		"especial": 2
+	},
+	"bebidas":{
+		"coca1L": 1.6,
+		"sun"    : 1,
+		"pepsi1L": 1.6,
+		"botella": 0.75,
+		"coca2L" : 2.4
+
+	},
+	"parriPapa" : 5,
+	"pepito"    : 5,
+	"enrrollado": 5
+}

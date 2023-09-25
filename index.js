@@ -34,15 +34,16 @@ const firebaseConfig = {
 const port = process.env.PORT || 3000;
 app.use(cors());
 
-app.listen(port, async () => {
+
+app.get('/bcv', async (req, res) => {
   try {
-    const data = await obtenerBcv();
-    precioBcv = data.usd;
-    console.log(`Servidor Express escuchando en el puerto ${port}`);
+    //const data = await obtenerBcv();
+    res.json(precioBcv);
   } catch (error) {
-    console.error('Error al obtener los datos del BCV al iniciar el servidor:', error);
+    res.status(500).json({ error: 'Error al obtener los datos del BCV' });
   }
 });
+
 
   app.get('/menu', (req, res) => {
     // Utilizar el valor almacenado en precioUsd en lugar de llamar a obtenerBcv
@@ -81,14 +82,7 @@ app.get('/menu', async (req, res) => {
 });
 */
 
-app.get('/bcv', async (req, res) => {
-  try {
-    const data = await obtenerBcv();
-    res.json(data);
-  } catch (error) {
-    res.status(500).json({ error: 'Error al obtener los datos del BCV' });
-  }
-});
+
 
 
 // Datos del menú almacenados en una variable en memoria
@@ -207,6 +201,8 @@ const menu = [
   },
 ];
 
-app.listen(port, () => {
+app.listen(port, async () => {
+    const data = await obtenerBcv();
+    precioBcv = data.usd;
   console.log(`Servidor Express escuchando en el puerto ${port}`);
 });
