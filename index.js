@@ -203,6 +203,6 @@ const menu = [
 
 app.listen(port, async () => {
     const data = await obtenerBcv();
-    precioBcv = data.usd;
+    precioBcv = data;
   console.log(`Servidor Express escuchando en el puerto ${port}`);
 });
