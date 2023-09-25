@@ -34,14 +34,15 @@ const firebaseConfig = {
 const port = process.env.PORT || 3000;
 app.use(cors());
 
-obtenerBcv()
-  .then((data) => {
+app.listen(port, async () => {
+  try {
+    const data = await obtenerBcv();
     precioBcv = data.usd;
-  })
-  .catch((error) => {
+    console.log(`Servidor Express escuchando en el puerto ${port}`);
+  } catch (error) {
     console.error('Error al obtener los datos del BCV al iniciar el servidor:', error);
-  });
-
+  }
+});
 
   app.get('/menu', (req, res) => {
     // Utilizar el valor almacenado en precioUsd en lugar de llamar a obtenerBcv
