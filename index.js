@@ -3,91 +3,8 @@ const app = express();
 const cors = require('cors');
 const fs = require('fs');
 const { obtenerBcv } = require('./bcv');
-let precioBcv = 0;
-
-
-//const { initializeApp, applicationDefault, cert } = require('firebase-admin/app');
-//const { getFirestore, Timestamp, FieldValue, Filter } = require('firebase-admin/firestore');
-
-/*
-const serviceAccount = require('./serviceAccountKey.json');
-
-initializeApp({
-  credential: cert(serviceAccount)
-});*/
-
-//const db = getFirestore();
-
-/*
-// Your web app's Firebase configuration
-const firebaseConfig = {
-  apiKey: "AIzaSyCqwU7Klz9JgWv0-xD2uU9rl_eqRTkgw3Q",
-  authDomain: "menu-45f18.firebaseapp.com",
-  projectId: "menu-45f18",
-  storageBucket: "menu-45f18.appspot.com",
-  messagingSenderId: "851505743604",
-  appId: "1:851505743604:web:6e80dfe439ce4d9db0c0a1"
-};*/
-
-
-
-const port = process.env.PORT || 3000;
-app.use(cors());
-
-
-app.get('/bcv', async (req, res) => {
-  try {
-    const data = await obtenerBcv();
-    precioBcv = data.usd;
-    res.json(data);
-  } catch (error) {
-    res.status(500).json({ error: 'Error al obtener los datos del BCV' });
-  }
-});
-
-
-  app.get('/menu', (req, res) => {
-    // Utilizar el valor almacenado en precioUsd en lugar de llamar a obtenerBcv
-    const menuConPrecioBs = menu.map((item) => ({
-      ...item,
-      precioBs: parseFloat((item.precio * precioBcv).toFixed(2)),
-    }));
-    res.json(menuConPrecioBs);
-  });
-
-
-
-
-// Ruta para obtener los datos del BCV
-
-/*
-app.get('/menu', async (req, res) => {
-  try {
-  
-    const menu = db.collection('menu');
-
-    // Obtiene todos los documentos en la colección
-    const snapshot = await menu.get();
-
-    const datos = [];
-    snapshot.forEach((doc) => {
-      datos.push(doc.data());
-    });
-
-    console.log('Datos obtenidos de Firestore:', datos);
-    res.json(datos);
-  } catch (error) {
-    console.error('Error al obtener los datos desde Firestore:', error);
-    res.status(500).json({ error: 'Error al obtener los datos desde Firestore' });
-  }
-});
-*/
-
-
-
-
-// Datos del menú almacenados en una variable en memoria
-const menu = [
+var precioBcv = 0;
+var menu = [
   {
    desc: "Combo 1",
    nombre: "Perro",
@@ -201,6 +118,96 @@ const menu = [
     id:13
   },
 ];
+
+
+
+//const { initializeApp, applicationDefault, cert } = require('firebase-admin/app');
+//const { getFirestore, Timestamp, FieldValue, Filter } = require('firebase-admin/firestore');
+
+/*
+const serviceAccount = require('./serviceAccountKey.json');
+
+initializeApp({
+  credential: cert(serviceAccount)
+});*/
+
+//const db = getFirestore();
+
+/*
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyCqwU7Klz9JgWv0-xD2uU9rl_eqRTkgw3Q",
+  authDomain: "menu-45f18.firebaseapp.com",
+  projectId: "menu-45f18",
+  storageBucket: "menu-45f18.appspot.com",
+  messagingSenderId: "851505743604",
+  appId: "1:851505743604:web:6e80dfe439ce4d9db0c0a1"
+};*/
+
+
+
+const port = process.env.PORT || 3000;
+app.use(cors());
+
+async function consultar(){
+  precioBcv = await obtenerBcv();
+  console.log(precioBcv);  
+}
+consultar();
+
+app.get('/bcv', async (req, res) => {
+  try {
+    //const data = await obtenerBcv();
+    //precioBcv = data.usd;
+    //res.json(data);
+    res.json(precioBcv.usd);
+  } catch (error) {
+    res.status(500).json({ error: 'Error al obtener los datos del BCV' });
+  }
+});
+
+
+  app.get('/menu', async (req, res) => {
+    // Utilizar el valor almacenado en precioUsd en lugar de llamar a obtenerBcv
+    const menuConPrecioBs = menu.map((item) => ({
+      ...item,
+      precioBs: parseFloat((item.precio * precioBcv.usd).toFixed(2)),
+    }));
+    res.json(menuConPrecioBs);
+  });
+
+
+
+
+// Ruta para obtener los datos del BCV
+
+/*
+app.get('/menu', async (req, res) => {
+  try {
+  
+    const menu = db.collection('menu');
+
+    // Obtiene todos los documentos en la colección
+    const snapshot = await menu.get();
+
+    const datos = [];
+    snapshot.forEach((doc) => {
+      datos.push(doc.data());
+    });
+
+    console.log('Datos obtenidos de Firestore:', datos);
+    res.json(datos);
+  } catch (error) {
+    console.error('Error al obtener los datos desde Firestore:', error);
+    res.status(500).json({ error: 'Error al obtener los datos desde Firestore' });
+  }
+});
+*/
+
+
+
+
+// Datos del menú almacenados en una variable en memoria
 
 app.listen(port,  () => {
   console.log(`Servidor Express escuchando en el puerto ${port}`);

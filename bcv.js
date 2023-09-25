@@ -18,7 +18,7 @@ function obtenerBcv() {
         // Devuelve los datos como un objeto
         const data = { usd: usdNumber };
         resolve(data);
-        console.log(data)
+        //console.log(data)
       })
       .catch(error => {
         console.error(`Error al hacer la solicitud HTTP: ${error.message}`);
