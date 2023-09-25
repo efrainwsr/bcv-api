@@ -4,6 +4,7 @@ const cors = require('cors');
 const fs = require('fs');
 const { obtenerBcv } = require('./bcv');
 var precioBcv = 0;
+var menuConPrecioBs;
 var menu = [
   {
    desc: "Combo 1",
@@ -151,7 +152,11 @@ app.use(cors());
 
 async function consultar(){
   precioBcv = await obtenerBcv();
-  console.log(precioBcv);  
+  //console.log(precioBcv);
+  menuConPrecioBs = menu.map((item) => ({
+      ...item,
+      precioBs: parseFloat((item.precio * precioBcv.usd).toFixed(2)),
+    }));  
 }
 consultar();
 
@@ -169,10 +174,6 @@ app.get('/bcv', async (req, res) => {
 
   app.get('/menu', async (req, res) => {
     // Utilizar el valor almacenado en precioUsd en lugar de llamar a obtenerBcv
-    const menuConPrecioBs = menu.map((item) => ({
-      ...item,
-      precioBs: parseFloat((item.precio * precioBcv.usd).toFixed(2)),
-    }));
     res.json(menuConPrecioBs);
   });
 
