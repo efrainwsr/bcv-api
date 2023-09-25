@@ -37,8 +37,9 @@ app.use(cors());
 
 app.get('/bcv', async (req, res) => {
   try {
-    //const data = await obtenerBcv();
-    res.json(precioBcv);
+    const data = await obtenerBcv();
+    precioBcv = data.usd;
+    res.json(data);
   } catch (error) {
     res.status(500).json({ error: 'Error al obtener los datos del BCV' });
   }
@@ -201,8 +202,6 @@ const menu = [
   },
 ];
 
-app.listen(port, async () => {
-    const data = await obtenerBcv();
-    precioBcv = data.usd;
+app.listen(port,  () => {
   console.log(`Servidor Express escuchando en el puerto ${port}`);
 });
