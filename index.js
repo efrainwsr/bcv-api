@@ -1,7 +1,6 @@
 const express = require('express');
 const app = express();
 const cors = require('cors');
-const fs = require('fs');
 const { obtenerBcv } = require('./bcv');
 var precioBcv = 0;
 var menuConPrecioBs;
@@ -150,15 +149,21 @@ const firebaseConfig = {
 const port = process.env.PORT || 3000;
 app.use(cors());
 
-async function consultar(){
-  precioBcv = await obtenerBcv();
-  //console.log(precioBcv);
-  menuConPrecioBs = menu.map((item) => ({
+async function calcularPreciosEnBs() {
+  try {
+    precioBcv = await obtenerBcv();
+    menuConPrecioBs = menu.map((item) => ({
       ...item,
       precioBs: parseFloat((item.precio * precioBcv.usd).toFixed(2)),
-    }));  
+    }));
+    console.log('Precios en Bs calculados con éxito.');
+  } catch (error) {
+    console.error('Error al calcular los precios en Bs:', error);
+  }
 }
-consultar();
+
+// Llamar a la función para calcular los precios en Bs al iniciar el servidor
+calcularPreciosEnBs();
 
 app.get('/bcv', async (req, res) => {
   try {
