@@ -4,6 +4,8 @@ const cors = require('cors');
 const { obtenerBcv } = require('./bcv');
 var precioBcv = 0;
 var menuConPrecioBs;
+
+
 var menu = [
   {
    desc: "Combo 1",
@@ -148,10 +150,15 @@ const firebaseConfig = {
 
 const port = process.env.PORT || 3000;
 app.use(cors());
+app.listen(port, async () => {
+  console.log(`Servidor Express escuchando en el puerto ${port}`);
+  precioBcv = await obtenerBcv();
+  calcularPreciosEnBs();
+});
 
 async function calcularPreciosEnBs() {
   try {
-    precioBcv = await obtenerBcv();
+    
     menuConPrecioBs = menu.map((item) => ({
       ...item,
       precioBs: parseFloat((item.precio * precioBcv.usd).toFixed(2)),
@@ -163,7 +170,7 @@ async function calcularPreciosEnBs() {
 }
 
 // Llamar a la función para calcular los precios en Bs al iniciar el servidor
-calcularPreciosEnBs();
+
 
 app.get('/bcv', async (req, res) => {
   try {
@@ -215,6 +222,4 @@ app.get('/menu', async (req, res) => {
 
 // Datos del menú almacenados en una variable en memoria
 
-app.listen(port,  () => {
-  console.log(`Servidor Express escuchando en el puerto ${port}`);
-});
+
