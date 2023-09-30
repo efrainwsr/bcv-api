@@ -152,8 +152,8 @@ const port = process.env.PORT || 3000;
 app.use(cors());
 app.listen(port, async () => {
   console.log(`Servidor Express escuchando en el puerto ${port}`);
-  precioBcv = await obtenerBcv();
-  calcularPreciosEnBs();
+  //precioBcv = await obtenerBcv();
+  //calcularPreciosEnBs();
 });
 
 async function calcularPreciosEnBs() {
@@ -177,6 +177,8 @@ app.get('/bcv', async (req, res) => {
     //const data = await obtenerBcv();
     //precioBcv = data.usd;
     //res.json(data);
+    precioBcv = await obtenerBcv();
+    calcularPreciosEnBs();
     res.json(precioBcv.usd);
   } catch (error) {
     res.status(500).json({ error: 'Error al obtener los datos del BCV' });
