@@ -1,7 +1,6 @@
 const express = require('express');
 const app = express();
 const cors = require('cors');
-var cron = require('node-cron');
 const { obtenerBcv } = require('./bcv');
 var precioBcv = 0;
 var menuConPrecioBs;
@@ -149,10 +148,11 @@ const firebaseConfig = {
 
 
 
-cron.schedule('*/5 * * * *', async () => {
+
+
+setInterval(function () {
     precioBcv = await obtenerBcv();
-    //console.log(precioBcv)
-});
+}, 300000);
 
 const port = process.env.PORT || 3000;
 app.use(cors());
