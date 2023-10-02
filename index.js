@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const cors = require('cors');
+var cron = require('node-cron');
 const { obtenerBcv } = require('./bcv');
 var precioBcv = 0;
 var menuConPrecioBs;
@@ -148,12 +149,15 @@ const firebaseConfig = {
 
 
 
+cron.schedule('*/5 * * * *', async () => {
+    precioBcv = await obtenerBcv();
+    //console.log(precioBcv)
+});
+
 const port = process.env.PORT || 3000;
 app.use(cors());
 app.listen(port, async () => {
   console.log(`Servidor Express escuchando en el puerto ${port}`);
-  //precioBcv = await obtenerBcv();
-  //calcularPreciosEnBs();
 });
 
 async function calcularPreciosEnBs() {
@@ -169,14 +173,9 @@ async function calcularPreciosEnBs() {
   }
 }
 
-// Llamar a la función para calcular los precios en Bs al iniciar el servidor
-
 
 app.get('/bcv', async (req, res) => {
   try {
-    //const data = await obtenerBcv();
-    //precioBcv = data.usd;
-    //res.json(data);
     precioBcv = await obtenerBcv();
     calcularPreciosEnBs();
     res.json(precioBcv.usd);
@@ -187,7 +186,6 @@ app.get('/bcv', async (req, res) => {
 
 
   app.get('/menu', async (req, res) => {
-    // Utilizar el valor almacenado en precioUsd en lugar de llamar a obtenerBcv
     res.json(menuConPrecioBs);
   });
 
