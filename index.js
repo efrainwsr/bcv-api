@@ -152,6 +152,7 @@ const firebaseConfig = {
 
 setInterval(async function () {
     precioBcv = await obtenerBcv();
+    calcularPreciosEnBs();
 }, 300000);
 
 const port = process.env.PORT || 3000;
@@ -176,8 +177,8 @@ async function calcularPreciosEnBs() {
 
 app.get('/bcv', async (req, res) => {
   try {
-    precioBcv = await obtenerBcv();
-    calcularPreciosEnBs();
+    //precioBcv = await obtenerBcv();
+    //calcularPreciosEnBs();
     res.json(precioBcv.usd);
   } catch (error) {
     res.status(500).json({ error: 'Error al obtener los datos del BCV' });
