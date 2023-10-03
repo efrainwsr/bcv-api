@@ -159,6 +159,8 @@ const port = process.env.PORT || 3000;
 app.use(cors());
 app.listen(port, async () => {
   console.log(`Servidor Express escuchando en el puerto ${port}`);
+  precioBcv = await obtenerBcv();
+  calcularPreciosEnBs();
 });
 
 async function calcularPreciosEnBs() {
