@@ -150,7 +150,7 @@ const firebaseConfig = {
 
 
 
-setInterval(function () {
+setInterval(async function () {
     precioBcv = await obtenerBcv();
 }, 300000);
 
