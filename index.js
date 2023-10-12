@@ -12,7 +12,7 @@ var menu = [
    nombre: "Perro",
    size: "",
    precio: 5,
-   cat: 8,
+   cat: 6,
    id: 14,
   },
   {
@@ -76,7 +76,7 @@ var menu = [
     nombre: "Enrrollado",
     size: "",
     precio:5,
-    cat: 5,
+    cat: 4,
     id:8
   },
   {
@@ -84,7 +84,7 @@ var menu = [
     nombre: "Pepito",
     size: "",
     precio:5,
-    cat: 6,
+    cat: 4,
     id:9
   },
   {
@@ -92,7 +92,7 @@ var menu = [
     nombre: "Coca-Cola",
     size: "Peq.",
     precio:1.6,
-    cat: 7,
+    cat: 5,
     id:10
   },
   {
@@ -100,7 +100,7 @@ var menu = [
     nombre: "Coca-Cola",
     size: "Gran.",
     precio:2.6,
-    cat: 7,
+    cat: 5,
     id:11
   },
   {
@@ -108,7 +108,7 @@ var menu = [
     nombre: "Sun",
     size: "Peq.",
     precio:1,
-    cat: 7,
+    cat: 5,
     id:12
   },
   {
@@ -116,7 +116,7 @@ var menu = [
     nombre: "Refresco",
     size: "Peq.",
     precio:0.75,
-    cat: 7,
+    cat: 5,
     id:13
   },
 ];
