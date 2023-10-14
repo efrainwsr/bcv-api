@@ -14,6 +14,7 @@ var menu = [
    precio: 5,
    cat: 6,
    id: 14,
+   cant:0
   },
   {
     desc: "Sencillo",
@@ -21,7 +22,8 @@ var menu = [
     size: "Peq.",
     precio:1,
     cat: 1,
-    id:1
+    id:1,
+    cant:0
   },
   {
     desc: "Especial",
@@ -29,7 +31,8 @@ var menu = [
     size: "Peq.",
     precio:1.8,
     cat: 1,
-    id:2
+    id:2,
+    cant:0
   },
   {
     desc: "Sencilla",
@@ -37,7 +40,8 @@ var menu = [
     size: "",
     precio:3,
     cat: 2,
-    id:3
+    id:3,
+    cant:0
   },
   {
     desc: "Especial",
@@ -45,7 +49,8 @@ var menu = [
     size: "",
     precio:4.8,
     cat: 2,
-    id:4
+    id:4,
+    cant:0
   },
   {
     desc: "Sencilla",
@@ -53,7 +58,8 @@ var menu = [
     size: "",
     precio:1,
     cat: 3,
-    id:5
+    id:5,
+    cant:0
   },
   {
     desc: "Especial",
@@ -61,7 +67,8 @@ var menu = [
     size: "",
     precio:2,
     cat: 3,
-    id:6
+    id:6,
+    cant:0
   },
   {
     desc: "",
@@ -69,7 +76,8 @@ var menu = [
     size: "",
     precio:5,
     cat: 4,
-    id:7
+    id:7,
+    cant:0
   },
   {
     desc: "",
@@ -77,7 +85,8 @@ var menu = [
     size: "",
     precio:5,
     cat: 4,
-    id:8
+    id:8,
+    cant:0
   },
   {
     desc: "",
@@ -85,7 +94,8 @@ var menu = [
     size: "",
     precio:5,
     cat: 4,
-    id:9
+    id:9,
+    cant:0
   },
   {
     desc: "1L",
@@ -93,7 +103,8 @@ var menu = [
     size: "Peq.",
     precio:1.6,
     cat: 5,
-    id:10
+    id:10,
+    cant:0
   },
   {
     desc: "2L",
@@ -101,7 +112,8 @@ var menu = [
     size: "Gran.",
     precio:2.6,
     cat: 5,
-    id:11
+    id:11,
+    cant:0
   },
   {
     desc: "1L",
@@ -109,7 +121,8 @@ var menu = [
     size: "Peq.",
     precio:1,
     cat: 5,
-    id:12
+    id:12,
+    cant:0
   },
   {
     desc: "Botella",
@@ -117,7 +130,8 @@ var menu = [
     size: "Peq.",
     precio:0.75,
     cat: 5,
-    id:13
+    id:13,
+    cant:0
   },
 ];
 
