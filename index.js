@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const { obtenerBcv } = require('./bcv');
-var precioBcv = 0;
+var precioBcv = 35;
 var menuConPrecioBs;
 
 
@@ -173,7 +173,7 @@ const port = process.env.PORT || 3000;
 app.use(cors());
 app.listen(port, async () => {
   console.log(`Servidor Express escuchando en el puerto ${port}`);
-  precioBcv = await obtenerBcv();
+  //precioBcv = await obtenerBcv();
   calcularPreciosEnBs();
 });
 
