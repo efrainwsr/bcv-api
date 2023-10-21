@@ -182,7 +182,7 @@
   
      menuConPrecioBs = menu.map((item) => ({ 
        ...item, 
-       precioBs: parseFloat((item.precio * precioBcv.usd).toFixed(2)), 
+       precioBs: parseFloat((item.precio * precioBcv).toFixed(2)), 
      })); 
      console.log('Precios en Bs calculados con éxito.'); 
    } catch (error) { 
@@ -195,7 +195,7 @@
    try { 
      //precioBcv = await obtenerBcv(); 
      //calcularPreciosEnBs(); 
-     res.json(precioBcv.usd); 
+     //res.json(precioBcv.usd); 
    } catch (error) { 
      res.status(500).json({ error: 'Error al obtener los datos del BCV' }); 
    } 
