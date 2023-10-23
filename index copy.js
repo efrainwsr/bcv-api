@@ -1,91 +1,10 @@
  const express = require('express'); 
  const app = express(); 
  const cors = require('cors'); 
- const axios = require('axios')
 //const { obtenerBcv } = require('./bcv'); 
- var precioBcv = 0; 
- var menuConPrecioBs;
-
-
-async function obtenerBcv() {
- const response = await axios.get("https://exchange.vcoud.com/coins/latest")
- return response.data[61].price;
- }
-
- //console.log(obtenerBcv())
-
-
- 
- 
-
-/*
- const apiUrl = "https://api.alcambio.app/graphql/"
-
- const graphqlQuery = `
- query getCountryConversions($countryCode: String!) {
-  getCountryConversions(payload: {countryCode: $countryCode}) {
-    _id
-    baseCurrency {
-      code
-      decimalDigits
-      name
-      rounding
-      symbol
-      symbolNative
-      __typename
-    }
-    country {
-      code
-      dial_code
-      flag
-      name
-      __typename
-    }
-    conversionRates {
-      baseValue
-      official
-      principal
-      rateCurrency {
-        code
-        decimalDigits
-        name
-        rounding
-        symbol
-        symbolNative
-        __typename
-      }
-      rateValue
-      type
-      __typename
-    }
-    dateBcvFees
-    dateParalelo
-    dateBcv
-    createdAt
-    __typename
-  }
-}
-`;
-
-const variables = {
-  countryCode: 'VE',
-};
-
-axios.post(apiUrl, {
-    query: graphqlQuery,
-    variables,
-  })
-  .then((response) => {
-
-   console.log(rates)
-  })
-  .catch((error) => {
-    console.error('Error:', error);
-  });*/
-
+ var precioBcv = 35; 
+ var menuConPrecioBs; 
   
-
- 
   
  var menu = [ 
    { 
@@ -101,7 +20,7 @@ axios.post(apiUrl, {
      desc: "Sencillo", 
      nombre: "Perro", 
      size: "Peq.", 
-     precio:1,
+     precio:1, 
      cat: 1, 
      id:1, 
      cant:0 
@@ -216,34 +135,56 @@ axios.post(apiUrl, {
    }, 
  ]; 
   
-
   
- setInterval(async function () { 
+  
+ //const { initializeApp, applicationDefault, cert } = require('firebase-admin/app'); 
+ //const { getFirestore, Timestamp, FieldValue, Filter } = require('firebase-admin/firestore'); 
+  
+ /* 
+ const serviceAccount = require('./serviceAccountKey.json'); 
+  
+ initializeApp({ 
+   credential: cert(serviceAccount) 
+ });*/ 
+  
+ //const db = getFirestore(); 
+  
+ /* 
+ // Your web app's Firebase configuration 
+ const firebaseConfig = { 
+   apiKey: "AIzaSyCqwU7Klz9JgWv0-xD2uU9rl_eqRTkgw3Q", 
+   authDomain: "menu-45f18.firebaseapp.com", 
+   projectId: "menu-45f18", 
+   storageBucket: "menu-45f18.appspot.com", 
+   messagingSenderId: "851505743604", 
+   appId: "1:851505743604:web:6e80dfe439ce4d9db0c0a1" 
+ };*/ 
+  
+  
+  
+  
+  
+/* setInterval(async function () { 
      precioBcv = await obtenerBcv(); 
      calcularPreciosEnBs(); 
-     console.log(precioBcv)
- }, 60000);
+ }, 300000); */
   
  const port = process.env.PORT || 3000; 
  app.use(cors()); 
  app.listen(port, async () => { 
    console.log(`Servidor Express escuchando en el puerto ${port}`); 
-   precioBcv = await obtenerBcv();
-   calcularPreciosEnBs();
-   setInterval(async function () { 
-    precioBcv = await obtenerBcv(); 
-    calcularPreciosEnBs(); 
-}, 180000);
+   //precioBcv = await obtenerBcv(); 
+   calcularPreciosEnBs(); 
  }); 
   
  async function calcularPreciosEnBs() { 
    try { 
-     //precioBcv = await obtenerBcv();
+  
      menuConPrecioBs = menu.map((item) => ({ 
        ...item, 
        precioBs: parseFloat((item.precio * precioBcv).toFixed(2)), 
      })); 
-     //console.log('Precios en Bs calculados con éxito.'); 
+     console.log('Precios en Bs calculados con éxito.'); 
    } catch (error) { 
      console.error('Error al calcular los precios en Bs:', error); 
    } 
@@ -254,23 +195,44 @@ axios.post(apiUrl, {
    try { 
      //precioBcv = await obtenerBcv(); 
      //calcularPreciosEnBs(); 
-     //res.json(precioBcv.usd);
-    //precioBcv = await obtenerBcv();
-    res.json(precioBcv);
+     //res.json(precioBcv.usd); 
    } catch (error) { 
      res.status(500).json({ error: 'Error al obtener los datos del BCV' }); 
    } 
- });
+ }); 
   
   
-   app.get('/menu', async (req, res) => {
-     //await calcularPreciosEnBs();
+   app.get('/menu', async (req, res) => { 
      res.json(menuConPrecioBs); 
    }); 
   
   
   
-
+  
+ // Ruta para obtener los datos del BCV 
+  
+ /* 
+ app.get('/menu', async (req, res) => { 
+   try { 
+    
+     const menu = db.collection('menu'); 
+  
+     // Obtiene todos los documentos en la colección 
+     const snapshot = await menu.get(); 
+  
+     const datos = []; 
+     snapshot.forEach((doc) => { 
+       datos.push(doc.data()); 
+     }); 
+  
+     console.log('Datos obtenidos de Firestore:', datos); 
+     res.json(datos); 
+   } catch (error) { 
+     console.error('Error al obtener los datos desde Firestore:', error); 
+     res.status(500).json({ error: 'Error al obtener los datos desde Firestore' }); 
+   } 
+ }); 
+ */ 
   
   
   
