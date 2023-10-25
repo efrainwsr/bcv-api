@@ -7,6 +7,7 @@
  var precioBcv = 0;
  var bcv = null;
  var menuConPrecioBs;
+ var fecha;
 
  const port = process.env.PORT || 3000; 
  app.use(cors()); 
@@ -20,26 +21,34 @@
    } catch (error) { 
      console.error('Error al calcular los precios en Bs:', error); 
    } 
- } 
+ }
+
+ const actualizarDatos = async() =>{
+  bcv = await getData();
+  precioBcv = bcv.precio;
+  fecha = bcv.fecha;
+ }
 
 
 //**************** INICIAR SERVIDOR *********************
  app.listen(port, async () => { 
    console.log(`Servidor Express escuchando en el puerto ${port}`); 
-
-   bcv = await getData();
-   calcularPreciosEnBs();
-
-   setInterval(async function () { 
-    precioBcv = await getData(); 
-    calcularPreciosEnBs(); 
-  }, 180000);
+   await actualizarDatos()
+   await calcularPreciosEnBs();
  }); 
+
+
+ setInterval(async function () { 
+    await actualizarDatos()
+    await calcularPreciosEnBs(); 
+  }, 180000);
+
+
 
 //***************** ENDPOINTS *************************
  app.get('/bcv', async (req, res) => { 
    try { 
-    let bcv = await getData();
+    //let bcv = await getData();
     res.json(bcv);
   }catch (error) { 
    res.status(500).json({ error: 'Error al obtener los datos del BCV' }); 
