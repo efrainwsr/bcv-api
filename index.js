@@ -64,15 +64,6 @@
 
  var menu = [ 
  { 
-  desc: "Combo 1", 
-  nombre: "Perro", 
-  size: "", 
-  precio: 5, 
-  cat: 6, 
-  id: 14, 
-  cant:0 
-}, 
-{ 
  desc: "Sencillo", 
  nombre: "Perro", 
  size: "Peq.", 
@@ -155,13 +146,14 @@
 }, 
 { 
  desc: "1L", 
- nombre: "Coca-Cola", 
+ nombre: "Refresco", 
  size: "Peq.", 
  precio:1.6, 
  cat: 5, 
  id:10, 
  cant:0 
-}, 
+},
+/* 
 { 
  desc: "2L", 
  nombre: "Coca-Cola", 
@@ -170,7 +162,7 @@
  cat: 5, 
  id:11, 
  cant:0 
-}, 
+}, */
 { 
  desc: "1L", 
  nombre: "Sun", 
@@ -181,10 +173,10 @@
  cant:0 
 }, 
 { 
- desc: "Botella", 
+ desc: "400 ml", 
  nombre: "Refresco", 
  size: "Peq.", 
- precio:0.75, 
+ precio:0.55, 
  cat: 5, 
  id:13, 
  cant:0 
